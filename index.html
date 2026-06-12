@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Starling Academy: a playful K-2 reading and math space adventure."
+    />
+    <title>Starling Academy</title>
+    <link rel="stylesheet" href="styles.css?v=10" />
+  </head>
+  <body>
+    <main class="game-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">CADET TRAINING PROGRAM</p>
+          <h1>Starling Academy</h1>
+        </div>
+        <div class="status-cluster" aria-label="Game status">
+          <div class="status-pill">
+            <span>Navigation stars</span>
+            <strong id="star-count">0 ★</strong>
+          </div>
+          <button id="sound-button" class="icon-button" type="button" aria-label="Turn sound off">
+            Sound: On
+          </button>
+        </div>
+      </header>
+
+      <section id="setup-screen" class="screen active" aria-labelledby="setup-title">
+        <div class="mission-copy">
+          <p class="chapter">MISSION 01</p>
+          <h2 id="setup-title">Build your crew. Power the ship.</h2>
+          <p>
+            Move at least two cadets aboard the <strong>Millennium Falcon</strong>.
+            Every crew has a special learning boost.
+          </p>
+          <p class="input-hint">
+            Controls: tap or click, drag cadets with a mouse or finger, or use a
+            connected controller with D-pad/left stick and A.
+          </p>
+
+          <fieldset class="grade-picker">
+            <legend>Choose your learning level</legend>
+            <label>
+              <input type="radio" name="grade" value="K" checked />
+              <span>Kindergarten</span>
+            </label>
+            <label>
+              <input type="radio" name="grade" value="1" />
+              <span>Grade 1</span>
+            </label>
+            <label>
+              <input type="radio" name="grade" value="2" />
+              <span>Grade 2</span>
+            </label>
+          </fieldset>
+        </div>
+
+        <div class="hangar" aria-label="Spaceport hangar">
+          <div class="stars" aria-hidden="true"></div>
+          <div class="planet planet-one" aria-hidden="true"></div>
+          <div class="planet planet-two" aria-hidden="true"></div>
+
+          <div class="ship-wrap">
+            <div class="ship" aria-label="Millennium Falcon ship">
+              <div class="ship-glow"></div>
+              <img
+                class="ship-art"
+                src="assets/millennium-falcon.png"
+                alt=""
+                draggable="false"
+              />
+              <div class="ship-name">MILLENNIUM FALCON</div>
+            </div>
+
+            <div class="crew-slots" id="crew-slots" aria-label="Crew aboard">
+              <button class="crew-slot" data-slot="0" type="button" aria-label="Empty crew seat" disabled>
+                <span>+</span>
+              </button>
+              <button class="crew-slot" data-slot="1" type="button" aria-label="Empty crew seat" disabled>
+                <span>+</span>
+              </button>
+              <button class="crew-slot" data-slot="2" type="button" aria-label="Empty crew seat" disabled>
+                <span>+</span>
+              </button>
+            </div>
+          </div>
+
+        <div class="crew-dock">
+            <p>Tap or drag a cadet onto the ship</p>
+            <div id="crew-list" class="crew-list"></div>
+          </div>
+        </div>
+
+        <div class="launch-row">
+          <p id="crew-message" aria-live="polite">Choose 2 or 3 cadets.</p>
+          <button id="launch-button" class="primary-button" type="button" disabled>
+            Launch Mission
+            <span aria-hidden="true">→</span>
+          </button>
+        </div>
+      </section>
+
+      <section id="mission-screen" class="screen" aria-labelledby="mission-title">
+        <div class="mission-hud">
+          <button id="hangar-button" class="text-button" type="button">← Hangar</button>
+          <div class="route" aria-label="Mission progress">
+            <span id="route-label">Moon Garden</span>
+            <div class="route-dots" id="route-dots"></div>
+          </div>
+          <div id="crew-mini" class="crew-mini" aria-label="Current crew"></div>
+        </div>
+
+        <div class="space-view">
+          <div class="speed-lines" aria-hidden="true"></div>
+          <div class="mission-planet" aria-hidden="true">
+            <span></span>
+          </div>
+          <div id="flight-path" class="flight-path" aria-hidden="true">
+            <div class="flight-path-line"></div>
+            <div id="mission-ship" class="mission-ship">
+              <span class="mission-ship-engine"></span>
+              <span class="mission-ship-body"></span>
+              <span class="mission-ship-cockpit"></span>
+              <span class="mission-ship-dish"></span>
+            </div>
+          </div>
+
+          <article class="challenge-card">
+            <div class="challenge-meta">
+              <span id="subject-badge" class="subject-badge">READING</span>
+              <button id="read-button" class="read-button" type="button">
+                Hear it aloud
+              </button>
+            </div>
+            <p id="question-number" class="question-number">Challenge 1 of 5</p>
+            <h2 id="mission-title">Which word begins with B?</h2>
+            <p id="question-hint" class="question-hint"></p>
+            <div id="answer-grid" class="answer-grid"></div>
+            <p id="feedback" class="feedback" aria-live="polite"></p>
+          </article>
+        </div>
+      </section>
+
+      <section id="complete-screen" class="screen" aria-labelledby="complete-title">
+        <div class="complete-card">
+          <div class="reward-orbit" aria-hidden="true">
+            <span>★</span>
+          </div>
+          <p class="chapter">MISSION COMPLETE</p>
+          <h2 id="complete-title">The Moon Garden is glowing!</h2>
+          <p id="complete-message">
+            Your reading and math power restored the garden lights.
+          </p>
+          <div class="score-card">
+            <span>Mission score</span>
+            <strong id="score-value">5 / 5</strong>
+          </div>
+          <div class="complete-actions">
+            <button id="again-button" class="primary-button" type="button">
+              Fly Again
+            </button>
+            <button id="new-crew-button" class="secondary-button" type="button">
+              Choose New Crew
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="game.js?v=7"></script>
+  </body>
+</html>
